@@ -14,12 +14,24 @@ const App = () => {
     ]);
   };
 
+  const deleteGoalHandler = (goalId) => {
+    setGoals((oldState) => {
+      return oldState.filter((goal) => goal.key !== goalId);
+    });
+  };
+
   return (
     <View style={styles.screenContainer}>
       <AddGoalInput setGoal={setGoalsHandler} />
       <FlatList
         data={goals}
-        renderItem={(itemData) => <GoalItem title={itemData.item.name} />}
+        renderItem={(itemData) => (
+          <GoalItem
+            title={itemData.item.name}
+            deleteGoal={deleteGoalHandler}
+            id={itemData.item.key}
+          />
+        )}
       />
     </View>
   );
