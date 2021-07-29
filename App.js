@@ -1,46 +1,25 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Button,
-  FlatList,
-} from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
+
+import GoalItem from "./components/GoalItem";
+import AddGoalInput from "./components/AddGoalInput";
 
 const App = () => {
-  const [enteredText, setEnteredText] = useState("");
   const [goals, setGoals] = useState([]);
 
-  const changeEnteredTextHandler = (text) => {
-    setEnteredText(text);
-  };
-
-  const setGoalsHandler = () => {
+  const setGoalsHandler = (title) => {
     setGoals((oldState) => [
       ...oldState,
-      { key: Math.random().toString(), name: enteredText },
+      { key: Math.random().toString(), name: title },
     ]);
   };
 
   return (
     <View style={styles.screenContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Goal"
-          style={styles.input}
-          onChangeText={changeEnteredTextHandler}
-          value={enteredText}
-        />
-        <Button title="ADD" onPress={setGoalsHandler} />
-      </View>
+      <AddGoalInput setGoal={setGoalsHandler} />
       <FlatList
         data={goals}
-        renderItem={(itemData) => (
-          <View style={styles.goalContainer}>
-            <Text>{itemData.item.name}</Text>
-          </View>
-        )}
+        renderItem={(itemData) => <GoalItem title={itemData.item.name} />}
       />
     </View>
   );
@@ -48,25 +27,8 @@ const App = () => {
 
 const styles = StyleSheet.create({
   screenContainer: {
-    padding: 50,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  input: {
-    width: "80%",
-    borderBottomColor: "grey",
-    borderBottomWidth: 1,
-    padding: 10,
-    marginBottom: 10,
-  },
-  goalContainer: {
-    padding: 10,
-    borderLeftWidth: 1,
-    borderColor: "blue",
-    marginBottom: 10,
+    paddingVertical: 50,
+    paddingHorizontal: 30,
   },
 });
 
