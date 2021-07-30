@@ -3,6 +3,7 @@ import { StyleSheet, View, FlatList, Button } from "react-native";
 
 import GoalItem from "./components/GoalItem";
 import AddGoalInput from "./components/AddGoalInput";
+import Dashboard from "./components/Dashboard";
 
 const App = () => {
   const [goals, setGoals] = useState([]);
@@ -28,6 +29,9 @@ const App = () => {
 
   return (
     <View style={styles.screenContainer}>
+      <View style={styles.dashboardContainer}>
+        <Dashboard />
+      </View>
       <View style={styles.listContainer}>
         <FlatList
           data={goals}
@@ -54,18 +58,29 @@ const App = () => {
 
 const styles = StyleSheet.create({
   screenContainer: {
-    justifyContent: "space-between",
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
 
-    paddingTop: 50,
+    paddingTop: 20,
     paddingHorizontal: 30,
   },
+  dashboardContainer: {
+    // backgroundColor: "green",
+    flex: 2,
+    justifyContent: "center",
+    width: "100%",
+  },
   listContainer: {
-    height: "90%",
+    // backgroundColor: "red",
+    paddingTop: 30,
+    flex: 5,
     width: "100%",
   },
   inputContainer: {
-    height: "10%",
+    // backgroundColor: "blue",
+    flex: 2,
+    justifyContent: "center",
     width: "100%",
   },
 });

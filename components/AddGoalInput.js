@@ -14,7 +14,7 @@ const AddGoalInput = (props) => {
   };
 
   return (
-    <Modal visible={props.modalVisible} animationType="fade" transparent>
+    <Modal visible={props.modalVisible} animationType="slide" transparent>
       <View style={styles.modalContainer}>
         <View style={styles.inputContainer}>
           <TextInput
@@ -22,7 +22,6 @@ const AddGoalInput = (props) => {
             style={styles.input}
             onChangeText={changeTextHandler}
             value={enteredText}
-            autoFocus={true}
           />
           <View style={styles.buttonsContainer}>
             <View style={styles.button}>
