@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Button, TextInput } from "react-native";
+import { StyleSheet, View, Button, TextInput, Modal } from "react-native";
 
 const AddGoalInput = (props) => {
   const [enteredText, setEnteredText] = useState("");
@@ -8,31 +8,60 @@ const AddGoalInput = (props) => {
     setEnteredText(text);
   };
 
+  const addGoalHandler = () => {
+    props.setGoal(enteredText);
+    setEnteredText("");
+  };
+
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        placeholder="Goal"
-        style={styles.input}
-        onChangeText={changeTextHandler}
-        value={enteredText}
-      />
-      <Button title="ADD" onPress={props.setGoal.bind(this, enteredText)} />
-    </View>
+    <Modal visible={props.modalVisible} animationType="fade" transparent>
+      <View style={styles.modalContainer}>
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="Goal"
+            style={styles.input}
+            onChangeText={changeTextHandler}
+            value={enteredText}
+            autoFocus={true}
+          />
+          <View style={styles.buttonsContainer}>
+            <View style={styles.button}>
+              <Button title="CANCEL" onPress={props.closeModal} color="red" />
+            </View>
+            <View style={styles.button}>
+              <Button title="ADD" onPress={addGoalHandler} />
+            </View>
+          </View>
+        </View>
+      </View>
+    </Modal>
   );
 };
 
 const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+  },
   inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    padding: 30,
+    width: "100%",
+    backgroundColor: "white",
   },
   input: {
-    width: "80%",
+    width: "100%",
     borderBottomColor: "grey",
     borderBottomWidth: 1,
+    marginBottom: 10,
     padding: 10,
-    marginBottom: 20,
+  },
+  buttonsContainer: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  button: {
+    width: "40%",
   },
 });
 
